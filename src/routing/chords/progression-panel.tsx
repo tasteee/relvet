@@ -9,9 +9,9 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { $output } from '#/stores/$output'
 
 const BEAT_WIDTH = 40
-const STEP_HEIGHT = 48
+const STEP_HEIGHT = 60
 const BEATS_PER_BAR = 4
-const DIVISIONS_BAR_HEIGHT = 8
+const DIVISIONS_BAR_HEIGHT = 12
 const CANVAS_HEIGHT = STEP_HEIGHT + DIVISIONS_BAR_HEIGHT
 const BEAT_DIVISION_WIDTH = BEAT_WIDTH / 4
 
@@ -20,6 +20,7 @@ export const ProgressionPanel = observer(() => {
 	const canvasWidth = totalBeats * BEAT_WIDTH
 
 	const handleDragOver = (event: React.DragEvent) => {
+		console.log('Drag over event triggered')
 		event.preventDefault()
 		event.dataTransfer.dropEffect = 'copy'
 	}
@@ -28,8 +29,10 @@ export const ProgressionPanel = observer(() => {
 		event.preventDefault()
 		try {
 			const chordData = JSON.parse(event.dataTransfer.getData('application/json'))
+			console.log('Drop received:', chordData)
 			if (chordData && chordData.symbol) {
 				$store.addChordToProgression(chordData)
+				console.log('Chord added to store, total steps:', $store.steps.length)
 			}
 		} catch (error) {
 			console.error('Error parsing dropped chord data:', error)
@@ -67,18 +70,39 @@ export const ProgressionPanel = observer(() => {
 				onDragOver={handleDragOver}
 				onDrop={handleDrop}
 				style={{ 
-					border: '2px dashed var(--gray-6)', 
-					borderRadius: '4px', 
-					padding: '4px',
-					background: 'var(--gray-1)'
+					border: '1px solid var(--gray-7)', 
+					borderRadius: '8px', 
+					padding: '8px',
+					background: 'var(--gray-2)',
+					minHeight: '80px',
+					display: 'flex',
+					alignItems: 'center',
+					position: 'relative'
 				}}
 			>
-				<Stage width={canvasWidth} height={CANVAS_HEIGHT} className='progressionCanvas'>
+				<Stage width={canvasWidth} height={CANVAS_HEIGHT} className='progressionCanvas' style={{ border: '1px solid red' }}>
 					<ProgressionBackground />
 					<Layer>
 						<ProgressionSteps />
 					</Layer>
 				</Stage>
+				{/* Drop zone overlay for better drag and drop UX */}
+				{$store.steps.length === 0 && (
+					<div 
+						style={{
+							position: 'absolute',
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+							color: 'var(--gray-9)',
+							fontSize: '14px',
+							pointerEvents: 'none',
+							textAlign: 'center'
+						}}
+					>
+						Drag chords here to build your progression
+					</div>
+				)}
 			</div>
 		</Flex.Column>
 	)
@@ -131,21 +155,34 @@ const BeatTick = (props) => {
 const ProgressionSteps = () => {
 	let x = 0
 
-	return $store.steps.map((step) => {
+	console.log('ProgressionSteps rendering, steps:', $store.steps.length, $store.steps)
+
+	return $store.steps.map((step, index) => {
 		const width = step.durationBeats * BEAT_WIDTH
+		const chordHeight = STEP_HEIGHT - 4 // Leave some padding
+		
+		console.log(`Rendering chord ${index}:`, step.symbol, 'at x:', x, 'width:', width, 'height:', chordHeight)
+		
 		const rect = (
 			<Group key={step.id} onClick={() => $store.selectStep(step.id)}>
 				<Rect
 					x={x}
-					y={20}
+					y={DIVISIONS_BAR_HEIGHT + 2}
 					width={width}
-					height={60}
-					fill={step.isRest ? '#666' : step.color || 'white'}
+					height={chordHeight}
+					fill={step.isRest ? '#666' : step.color || '#10b981'}
 					cornerRadius={4}
-					stroke={$store.selectedStepId === step.id ? '#fff' : undefined}
-					strokeWidth={2}
+					stroke={$store.selectedStepId === step.id ? '#fff' : '#6b7280'}
+					strokeWidth={$store.selectedStepId === step.id ? 2 : 1}
 				/>
-				<KonvaText x={x + 6} y={40} text={step.symbol} fill='#000' fontSize={14} fontStyle='bold' />
+				<KonvaText 
+					x={x + 6} 
+					y={DIVISIONS_BAR_HEIGHT + 16} 
+					text={step.symbol} 
+					fill={step.isRest ? '#fff' : '#000'} 
+					fontSize={12} 
+					fontFamily='Arial'
+				/>
 			</Group>
 		)
 
