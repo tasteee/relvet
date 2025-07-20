@@ -118,16 +118,16 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 
 	const handleClick = () => {
 		// Play the chord using the audio system
-		if ($output.isReady && $output.instrument) {
-			console.log('Playing chord:', props.chord.symbol)
-			
+		if ($output.instrument) {
+			console.log('Playing chord:', props.chord)
+
 			// Play each note in the chord
 			const now = $output.audioContext.currentTime
-			props.chord.notes.forEach((note, index) => {
+			props.chord.adjustedNotes.forEach((note, index) => {
 				const delay = index * 0.02 // Slight stagger for a more natural sound
 				$output.instrument.play(note, now + delay, {
 					duration: 1.5,
-					gain: 0.6
+					gain: 0.6,
 				})
 			})
 		} else {
@@ -148,9 +148,9 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 	return (
 		<Popover.Root>
 			<Popover.Anchor asChild>
-				<ChordBrowserChord 
-					className={classes} 
-					key={props.chord.symbol} 
+				<ChordBrowserChord
+					className={classes}
+					key={props.chord.symbol}
 					data-accent-color={props.chord.color}
 					draggable
 					onClick={handleClick}
@@ -212,15 +212,15 @@ type ChordEditMenuPropsT = {
 }
 
 const VOICING_OPTIONS = {
-	'closed': 'Closed',
-	'open': 'Open',
-	'drop2': 'Drop 2',
-	'drop3': 'Drop 3',
-	'drop2and4': 'Drop 2 & 4',
-	'rootless': 'Rootless',
-	'spread': 'Spread',
-	'cluster': 'Cluster',
-	'shell': 'Shell'
+	closed: 'Closed',
+	open: 'Open',
+	drop2: 'Drop 2',
+	drop3: 'Drop 3',
+	drop2and4: 'Drop 2 & 4',
+	rootless: 'Rootless',
+	spread: 'Spread',
+	cluster: 'Cluster',
+	shell: 'Shell',
 }
 
 export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
@@ -247,11 +247,11 @@ export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
 	return (
 		<Flex.Column gap='3' p='3' style={{ minWidth: '240px' }}>
 			<Typography.Bold>Edit Chord: {props.chord.symbol}</Typography.Bold>
-			
+
 			<Flex.Column gap='2'>
 				<Typography.Small>Octave</Typography.Small>
 				<TextField.Input
-					type="number"
+					type='number'
 					defaultValue={props.chord.octave.toString()}
 					min={1}
 					max={7}
@@ -262,7 +262,7 @@ export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
 			<Flex.Column gap='2'>
 				<Typography.Small>Inversion</Typography.Small>
 				<TextField.Input
-					type="number"
+					type='number'
 					defaultValue={props.chord.inversion.toString()}
 					min={0}
 					max={props.chord.notes.length - 1}
@@ -272,22 +272,21 @@ export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Voicing</Typography.Small>
-				<SimpleSelect 
-					options={VOICING_OPTIONS} 
-					value={props.chord.voicing} 
-					onChange={handleVoicingChange} 
-				/>
+				<SimpleSelect options={VOICING_OPTIONS} value={props.chord.voicing} onChange={handleVoicingChange} />
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Bass Note</Typography.Small>
-				<SimpleSelect 
-					options={props.chord.notes.reduce((acc, note) => {
-						acc[note] = note
-						return acc
-					}, {} as Record<string, string>)} 
-					value={props.chord.bassNote} 
-					onChange={handleBassNoteChange} 
+				<SimpleSelect
+					options={props.chord.notes.reduce(
+						(acc, note) => {
+							acc[note] = note
+							return acc
+						},
+						{} as Record<string, string>
+					)}
+					value={props.chord.bassNote}
+					onChange={handleBassNoteChange}
 				/>
 			</Flex.Column>
 
