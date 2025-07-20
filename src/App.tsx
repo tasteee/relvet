@@ -4,8 +4,15 @@ import { Router } from './routing/router'
 import { Theme } from '@radix-ui/themes'
 import { observer } from 'mobx-react-lite'
 import { $main } from './stores/$main'
+import { $output } from './stores/$output'
+import { useEffect } from 'react'
 
 const App = observer(() => {
+	useEffect(() => {
+		// Initialize the audio system
+		$output.initialize().catch(console.error)
+	}, [])
+
 	return (
 		<Theme appearance='light' accentColor='jade' grayColor='slate' panelBackground='solid' scaling='100%' radius='none'>
 			<Router />

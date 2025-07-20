@@ -6,6 +6,7 @@ import { $store } from './store'
 import { cssVarVal } from '#/modules/cssVarVal'
 import { IconButton } from '@radix-ui/themes'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { $output } from '#/stores/$output'
 
 const BEAT_WIDTH = 40
 const STEP_HEIGHT = 48
@@ -41,6 +42,15 @@ export const ProgressionPanel = observer(() => {
 				<Typography.Bold data-uppercase>Progression</Typography.Bold>
 
 				<Flex.Row className='actions' gap='2'>
+					<IconButton size='1' onClick={() => $output.engine.play()}>
+						<Icon icon='material-symbols:play-arrow' width='16px' height='16px' />
+					</IconButton>
+					<IconButton size='1' onClick={() => $output.engine.stop()}>
+						<Icon icon='material-symbols:stop' width='16px' height='16px' />
+					</IconButton>
+					<IconButton size='1'>
+						<Icon icon='material-symbols:loop' width='16px' height='16px' />
+					</IconButton>
 					<IconButton size='1'>
 						<Icon icon='vaadin:caret-left' width='16px' height='16px' />
 					</IconButton>

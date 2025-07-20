@@ -13,6 +13,7 @@ import { useDatass } from 'datass'
 import './popover.css'
 import { Typography } from '#/styles/system'
 import { ROOT_NOTES, SCALE_TYPES } from './constants'
+import { $output } from '#/stores/$output'
 
 export const ChordBrowserChord = styled.div`
 	height: 44px;
@@ -116,8 +117,22 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 	const toggleEdit = () => isEditing.set.toggle()
 
 	const handleClick = () => {
-		// TODO: Play the chord using audio system
-		console.log('Playing chord:', props.chord.symbol)
+		// Play the chord using the audio system
+		if ($output.isReady && $output.instrument) {
+			console.log('Playing chord:', props.chord.symbol)
+			
+			// Play each note in the chord
+			const now = $output.audioContext.currentTime
+			props.chord.notes.forEach((note, index) => {
+				const delay = index * 0.02 // Slight stagger for a more natural sound
+				$output.instrument.play(note, now + delay, {
+					duration: 1.5,
+					gain: 0.6
+				})
+			})
+		} else {
+			console.log('Audio system not ready, chord:', props.chord.symbol)
+		}
 	}
 
 	const handleDragStart = (event: React.DragEvent) => {

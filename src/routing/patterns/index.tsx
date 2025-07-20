@@ -3,6 +3,7 @@ import { Flex } from '#/components/Flex'
 import { Typography } from '#/styles/system'
 import { ProgressionPanel } from '../chords/progression-panel'
 import { styled } from 'styled-components'
+import { $patterns } from './store'
 
 const MidiGrid = styled.div`
 	display: grid;
@@ -39,6 +40,10 @@ const GridCell = styled.div<{ isActive?: boolean; beatIndex?: number }>`
 		background: ${props => props.isActive ? 'var(--accent-10)' : 'var(--accent-3)'};
 		border-color: var(--accent-7);
 	}
+
+	${props => props.isActive && `
+		box-shadow: inset 0 0 0 2px var(--accent-11);
+	`}
 `
 
 const TimeLabel = styled.div`
@@ -67,7 +72,8 @@ export const PatternsView = observer((props: PatternsViewPropsT) => {
 
 	const handleCellClick = (toneId: string, beatIndex: number) => {
 		console.log('Cell clicked:', toneId, 'at beat', beatIndex)
-		// TODO: Toggle pattern note, play preview
+		$patterns.toggleNote(toneId, beatIndex)
+		// TODO: Play preview of the tone at current chord
 	}
 
 	return (
@@ -111,13 +117,17 @@ const PatternEditor = observer((props: PatternEditorPropsT) => {
 						</ToneLabel>
 						
 						{/* Grid cells for this tone */}
-						{props.beatDivisions.map((beatIndex) => (
-							<GridCell
-								key={`cell-${toneId}-${beatIndex}`}
-								beatIndex={beatIndex}
-								onClick={() => props.onCellClick(toneId, beatIndex)}
-							/>
-						))}
+						{props.beatDivisions.map((beatIndex) => {
+							const isActive = $patterns.hasNoteAt(toneId, beatIndex)
+							return (
+								<GridCell
+									key={`cell-${toneId}-${beatIndex}`}
+									beatIndex={beatIndex}
+									isActive={isActive}
+									onClick={() => props.onCellClick(toneId, beatIndex)}
+								/>
+							)
+						})}
 					</>
 				))}
 			</MidiGrid>
