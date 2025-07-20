@@ -1,0 +1,24 @@
+{
+	"files": [],
+	"references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"#/*": ["src/*"],
+			"#components/*": ["src/components/*"],
+			"#modules/*": ["src/modules/*"],
+			"#stores/*": ["src/stores/*"],
+			"#hooks/*": ["src/hooks/*"],
+			"#styles/*": ["src/styles/*"],
+			"#types/*": ["src/types/*"],
+			"#constants/*": ["src/configuration/keyboard/constants/*"],
+			"#scenes/*": ["src/scenes/*"],
+			"#panda/*": ["src/styles/system/panda/*"],
+			"#styled": ["src/styles/system/panda/jsx"],
+			"cn": ["src/lib/cn.ts*"],
+			"@tailus/*": ["/components/tailus/*"],
+			"@lib/*": ["/lib/*"]
+		}
+	}
+}

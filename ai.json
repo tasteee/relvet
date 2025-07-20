@@ -1,0 +1,94 @@
+{
+	"results": [
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "1", "octaveOffset": "0", "symbol": "A7", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Bb", "voicing": "open" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "C#°7", "voicing": "closed" }
+			],
+			"justification": "A twisted waltz for a haunted ballroom. The descending bassline from Dm to A7/C# creates a classic gothic feel, while the bright Bb major offers a moment of false hope before plunging into the dissonant C# diminished 7th."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Gm", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "A", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "1", "octaveOffset": "0", "symbol": "E°", "voicing": "cluster" }
+			],
+			"justification": "This progression mimics the chaotic, oom-pah-pah energy of a cursed carnival ride. The strong iv-V-i movement is destabilized by a jarring, out-of-place E diminished chord, creating a feeling of playful menace."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "Dm", "voicing": "spread" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "F+", "voicing": "spread" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "Gm", "voicing": "spread" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "A7", "voicing": "spread" }
+			],
+			"justification": "A slow, foreboding march. The use of the F augmented chord (the III+ in harmonic minor) creates a deeply unsettling and unresolved feeling, like something wicked is slowly approaching. The low octave and spread voicings add weight and gravity."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm(maj7)", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm7", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Gm6", "voicing": "open" }
+			],
+			"justification": "This progression features a 'line cliché' where one note moves chromatically (D-C#-C) within the tonic chord, suggesting a ticking clock or a slow descent into madness. The Gm6 at the end adds a touch of melancholic, film-noir sophistication."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "2", "octaveOffset": "0", "symbol": "Bb", "voicing": "open" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Eø7", "voicing": "drop2" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "A7(b9)", "voicing": "spread" }
+			],
+			"justification": "This progression feels like looking into a funhouse mirror. It uses the half-diminished ii chord (Eø7) and the intensely dissonant A7(b9) to create a warped, disorienting atmosphere that is both quirky and deeply unsettling."
+		},
+		{
+			"chords": [
+				{ "inversion": "2", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "2", "octaveOffset": "0", "symbol": "E°", "voicing": "cluster" },
+				{ "inversion": "1", "octaveOffset": "1", "symbol": "Bb", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "A", "voicing": "closed" }
+			],
+			"justification": "A mischievous and impish progression. It starts off-balance on an inverted Dm, then uses a crunchy, inverted diminished chord to create a jumpy, unpredictable movement befitting a goblin's sneaky theme."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "1", "octaveOffset": "0", "symbol": "A7", "voicing": "closed" },
+				{ "inversion": "1", "octaveOffset": "0", "symbol": "Gm", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "1", "symbol": "C#°", "voicing": "closed" }
+			],
+			"justification": "Designed to evoke a frantic chase through a twisted forest. The bass line leaps around unstably (D-C#-Bb-C#), creating a sense of panicked urgency, while the chords maintain the dark, harmonic minor tonality."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Gm6", "voicing": "spread" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "A7(b9)", "voicing": "spread" },
+				{ "inversion": "1", "octaveOffset": "0", "symbol": "Dm", "voicing": "open" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "F+", "voicing": "open" }
+			],
+			"justification": "A grandiose and theatrical theme for a villain. The sophisticated Gm6 and the crushing tension of the A7(b9) resolve into a powerful Dm, only to end on the unresolved F augmented chord, hanging in the air like an evil monologue."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "1", "symbol": "Dm", "voicing": "drop2" },
+				{ "inversion": "0", "octaveOffset": "1", "symbol": "Bbmaj7", "voicing": "drop2" },
+				{ "inversion": "0", "octaveOffset": "1", "symbol": "E°7", "voicing": "drop2" },
+				{ "inversion": "0", "octaveOffset": "1", "symbol": "A7", "voicing": "closed" }
+			],
+			"justification": "The sound of a whimsical, floating ghost. The high octave and airy drop2 voicings give it a light quality, while the dreamy Bbmaj7 is contrasted with a chromatic and spooky E diminished 7th for a perfect blend of playful and eerie."
+		},
+		{
+			"chords": [
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "C#°7", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "0", "symbol": "Dm", "voicing": "closed" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "E7", "voicing": "open" },
+				{ "inversion": "0", "octaveOffset": "-1", "symbol": "A7", "voicing": "open" }
+			],
+			"justification": "This progression has a 'puppet-on-a-string' feel. It starts with the intense pull of the leading-tone chord, resolves briefly, then uses a secondary dominant (E7, the V7 of A) to build tension in a fun, carnivalesque way before the final dominant."
+		}
+	]
+}

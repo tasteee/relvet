@@ -1,0 +1,27 @@
+[data-uppercase='true'] {
+	text-transform: uppercase;
+}
+
+[data-bold='true'] {
+	font-weight: 700;
+}
+
+[data-italic='true'] {
+	font-style: italic;
+}
+
+[data-underline='true'] {
+	text-decoration: underline;
+}
+
+[data-strikethrough='true'] {
+	text-decoration: line-through;
+}
+
+[data-thin='true'] {
+	font-weight: 300;
+}
+
+[data-bolder='true'] {
+	font-weight: 900;
+}

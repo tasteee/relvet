@@ -1,0 +1,173 @@
+@import 'tailwindcss';
+
+.ProgressionBar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 180px;
+	background: var(--background);
+	z-index: 100;
+	border-top: 2px solid var(--slate-7);
+}
+
+.ProgressionBar .ProgressionStep {
+	@apply dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100;
+	@apply rounded-xs;
+	padding: 2px 4px;
+	border: 1px solid var(--foreground);
+	background: var(--gray-a4);
+	color: var(--foreground);
+	will-change: background, outline, color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 120ms;
+}
+
+.ProgressionBar .ProgressionStep:hover {
+	border: 1px solid var(--accent-7);
+	background: var(--accent-a1);
+	color: var(--accent-12);
+}
+
+.ProgressionBar .ProgressionStep.isSelected {
+	border: 1px solid var(--accent-9);
+	background: var(--accent-a3);
+	color: var(--accent-12);
+}
+
+.ProgressionBar .barTitle {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.8rem;
+	color: var(--white);
+}
+
+.ProgressionBar .top {
+}
+
+.ProgressionBar .progressionArea {
+	width: calc(100% - 24px);
+	position: relative;
+	margin: 0 auto;
+	height: 48px;
+	background: 
+		/* Vertical lines every 1/16th */ repeating-linear-gradient(
+			to right,
+			transparent 0,
+			transparent calc(6.25% - 1px),
+			var(--gray-4) calc(6.25% - 1px),
+			var(--gray-4) 6.25%
+		),
+		/* Thicker lines every 1/4th */
+			repeating-linear-gradient(to right, transparent 0, transparent calc(25% - 2px), var(--gray-6) calc(25% - 2px), var(--gray-6) 25%),
+		/* Alternating background quarters */
+			repeating-linear-gradient(
+				to right,
+				var(--gray-2) 0,
+				var(--gray-2) 25%,
+				var(--gray-3) 25%,
+				var(--gray-3) 50%,
+				var(--gray-2) 50%,
+				var(--gray-2) 75%,
+				var(--gray-3) 75%,
+				var(--gray-3) 100%
+			);
+	border-radius: 4px;
+	position: relative;
+	overflow-x: auto;
+	display: flex;
+	align-items: center;
+	box-shadow: inset 0 0 0 2px var(--gray-3);
+}
+
+.ProgressionStep {
+	min-width: 120px;
+	height: 40px;
+	border-radius: 6px;
+	background: var(--accent-color-bg);
+	border: 1px solid var(--accent-color-border);
+	position: relative;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	margin-left: 2px;
+	margin-right: 3px;
+}
+
+.ProgressionStep:hover {
+}
+
+.ProgressionStep .symbol {
+	font-weight: 600;
+	font-size: 0.9rem;
+	color: var(--accent-color-fg);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 80px;
+}
+
+.ProgressionStep .settingsIconButton {
+	opacity: 0.5;
+	transition: opacity 0.2s ease;
+}
+
+.ProgressionStep:hover .settingsIconButton {
+	opacity: 1;
+}
+
+.ProgressionRest {
+	min-width: 60px;
+	height: 40px;
+	border-radius: 6px;
+	background: var(--gray-3);
+	border: 1px solid var(--gray-5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.7;
+}
+
+.ProgressionRest:hover {
+	opacity: 1;
+}
+
+/* Glow effect when dragging a chord */
+.progressionArea.isDragTarget {
+	animation: dragGlow 1s ease-in-out infinite alternate;
+	transition: box-shadow 0.3s ease;
+}
+
+.progressionArea.isDragTarget {
+	box-shadow: inset 0 0 0 2px var(--accent-9);
+}
+
+@keyframes dragGlow {
+	0% {
+		filter: brightness(1);
+	}
+	100% {
+		filter: brightness(1.1);
+	}
+}
+
+.ProgressionChordSettingsMenu {
+	z-index: 1000;
+}
+
+.ProgressionBar .ProgressionStep.isDragging {
+	opacity: 0.5;
+	transform: scale(0.95);
+}
+
+.ProgressionBar .ProgressionStep .dragHandle {
+	opacity: 0.6;
+	transition: opacity 150ms ease;
+}
+
+.ProgressionBar .ProgressionStep:hover .dragHandle {
+	opacity: 1;
+}
+
+.ProgressionBar .ProgressionStep .dragHandle:hover {
+	color: var(--accent-11);
+}

@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+.ChordCard {
+	@apply dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100;
+	@apply rounded-xs;
+
+	width: 250px;
+	padding: 12px;
+	border: 2px solid var(--slate-a5);
+	background: var(--background);
+	color: var(--foreground);
+	will-change: background, border, color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 120ms;
+}
+
+.ChordCard .IconsRow {
+	opacity: 0.25;
+}
+
+.ChordCard:hover .IconsRow {
+	opacity: 1;
+}
+
+.ChordCard:hover {
+	border: 2px solid var(--accent-9);
+	background: var(--accent-a2);
+	color: var(--accent-12);
+}
+
+.ChordCard .NotesRow span {
+	color: var(--accent-12);
+}
+
+.ChordCard .OctaveRow,
+.ChordCard .VoicingRow,
+.ChordCard .BassNoteRow,
+.ChordCard .InversionRow {
+	gap: 8px;
+}
+
+.ChordCard:hover .OctaveRow,
+.ChordCard:hover .VoicingRow,
+.ChordCard:hover .BassNoteRow,
+.ChordCard:hover .InversionRow {
+	transition: opacity 200ms ease-in-out;
+}
+
+.ChordCard:hover .OctaveRow,
+.ChordCard:hover .VoicingRow,
+.ChordCard:hover .BassNoteRow,
+.ChordCard:hover .InversionRow {
+	opacity: 1 !important;
+}
+
+.ChordCard .RowContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.ChordCard .RightColumn {
+	text-align: right;
+}
+
+.ChordCard .VoicingRow {
+	font-weight: 700;
+}
+
+.ChordCard .OctaveRow,
+.ChordCard .VoicingRow,
+.ChordCard .BassNoteRow,
+.ChordCard .InversionRow {
+	@apply text-xs;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: var(--slate-11);
+}
+
+.ChordCard .OctaveRow .value,
+.ChordCard .VoicingRow,
+.ChordCard .BassNoteRow .value,
+.ChordCard .InversionRow .value {
+	@apply text-sm;
+	font-weight: 700;
+	color: var(--accent-12);
+}
+
+@keyframes popIn {
+	0% {
+		transform: rotate(5deg) scale(0.5);
+		opacity: 0.8;
+	}
+	50% {
+		transform: rotate(3deg) scale(1.1);
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(5deg) scale(0.9);
+		opacity: 1;
+	}
+}

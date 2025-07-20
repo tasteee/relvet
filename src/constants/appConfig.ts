@@ -1,0 +1,34 @@
+export const appConfig = {
+	defaultScaleRootNote: 'F#',
+	defaultScaleType: 'minor',
+	defaultBaseOctave: 3,
+	defaultBassBaseOctave: 2,
+
+	output: {
+		defaultType: 'instrument',
+		defaultInstrumentName: 'acoustic_grand_piano',
+	},
+
+	rootNotes: ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'],
+	scaleTypes: ['major', 'minor'],
+
+	rootNoteColors: {
+		C: 'mint',
+		'C#': 'sky',
+		Db: 'sky',
+		D: 'plum',
+		'D#': 'crimson',
+		Eb: 'crimson',
+		E: 'orange',
+		F: 'lime',
+		'F#': 'yellow',
+		Gb: 'yellow',
+		G: 'cyan',
+		'G#': 'indigo',
+		Ab: 'indigo',
+		A: 'ruby',
+		'A#': 'amber',
+		Bb: 'amber',
+		B: 'jade',
+	},
+}

@@ -1,0 +1,241 @@
+/* Individual font imports */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hubot+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Liter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Darker+Grotesque:wght@300..900&family=Federo&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Systemia:ital@0;400&family=Systemia+Beta:ital@0;400&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+
+.fontSansGolo {
+	font-family: var(--fontBricolageGrotesque);
+	font-weight: 400;
+	font-style: normal;
+}
+
+.fontDmSans {
+	font-family: var(--fontDmSans);
+}
+
+.fontSansBrico {
+	font-family: var(--fontBricolageGrotesque);
+	font-weight: 400;
+	font-style: normal;
+}
+
+.fontOutfit {
+	font-family: var(--fontOutfit);
+}
+
+.fontPrimary {
+	font-family: var(--fontInstrumentSans);
+}
+
+.fontSecondary {
+	font-family: var(--fontDmSans);
+}
+
+.fontMonoAz {
+	font-family: var(--fontMonoAz);
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* Font variables */
+:root {
+	--fontSecondary: var(--fontBricolageGrotesque);
+	--fontPrimary: var(--fontPublicSans);
+
+	--fontDmSans: 'DM Sans', sans-serif;
+	/* Named font variables */
+	--fontAtkinsonHyperlegible: 'Atkinson Hyperlegible', sans-serif;
+	--fontBeVietnamPro: 'Be Vietnam Pro', sans-serif;
+	--fontBricolageGrotesque: 'Bricolage Grotesque', sans-serif;
+	--fontCalSans: 'Cal Sans', sans-serif;
+	--fontEpilogue: 'Epilogue', sans-serif;
+	--fontFigtree: 'Figtree', sans-serif;
+	--fontFragmentMono: 'Fragment Mono', monospace;
+	--fontFunnelDisplay: 'Funnel Display', sans-serif;
+	--fontFunnelSans: 'Funnel Sans', sans-serif;
+	--fontGabarito: 'Gabarito', sans-serif;
+	--fontGeist: 'Geist', sans-serif;
+	--fontGeologica: 'Geologica', sans-serif;
+	--fontGolosText: 'Golos Text', sans-serif;
+	--fontHankenGrotesk: 'Hanken Grotesk', sans-serif;
+	--fontHostGrotesk: 'Host Grotesk', sans-serif;
+	--fontHubotSans: 'Hubot Sans', sans-serif;
+	--fontInstrumentSans: 'Instrument Sans', sans-serif;
+	--fontInterTight: 'Inter Tight', sans-serif;
+	--fontInter: 'Inter', sans-serif;
+	--fontLeagueSpartan: 'League Spartan', sans-serif;
+	--fontLexendDeca: 'Lexend Deca', sans-serif;
+	--fontLiter: 'Liter', sans-serif;
+	--fontPathwayExtreme: 'Pathway Extreme', sans-serif;
+	--fontPlusJakartaSans: 'Plus Jakarta Sans', sans-serif;
+	--fontPublicSans: 'Public Sans', sans-serif;
+	--fontQuestrial: 'Questrial', sans-serif;
+	--fontRethinkSans: 'Rethink Sans', sans-serif;
+	--fontSchibstedGrotesk: 'Schibsted Grotesk', sans-serif;
+	--fontSpaceGrotesk: 'Space Grotesk', sans-serif;
+	--fontTikTokSans: 'TikTok Sans', sans-serif;
+
+	--fontMonoAz: 'Azeret Mono', 'Space Grotesk', sans-serif;
+	--fontDisplayDM: 'DM Serif Display', serif;
+	--fontSansHost: 'Host Grotesk', sans-serif;
+	--fontSansGeist: 'Geist', sans-serif;
+
+	/* Numbered font variables for easy rotation */
+	--font0: var(--fontAtkinsonHyperlegible);
+	--font1: var(--fontBeVietnamPro);
+	--font2: var(--fontBricolageGrotesque);
+	--font3: var(--fontCalSans);
+	--font4: var(--fontEpilogue);
+	--font5: var(--fontFigtree);
+	--font6: var(--fontFragmentMono);
+	--font7: var(--fontFunnelDisplay);
+	--font8: var(--fontFunnelSans);
+	--font9: var(--fontGabarito);
+	--font10: var(--fontGeist);
+	--font11: var(--fontGeologica);
+	--font12: var(--fontGolosText);
+	--font13: var(--fontHankenGrotesk);
+	--font14: var(--fontHostGrotesk);
+	--font15: var(--fontHubotSans);
+	--font16: var(--fontInstrumentSans);
+	--font17: var(--fontInterTight);
+	--font18: var(--fontInter);
+	--font19: var(--fontLeagueSpartan);
+	--font20: var(--fontLexendDeca);
+	--font21: var(--fontLiter);
+	--font22: var(--fontPathwayExtreme);
+	--font23: var(--fontPlusJakartaSans);
+	--font24: var(--fontPublicSans);
+	--font25: var(--fontQuestrial);
+	--font26: var(--fontRethinkSans);
+	--font27: var(--fontSchibstedGrotesk);
+	--font28: var(--fontSpaceGrotesk);
+	--font29: var(--fontTikTokSans);
+}
+
+/* Local font definitions */
+@font-face {
+	font-family: 'Denton';
+	src: url('/fonts/Denton-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Denton Condensed';
+	src: url('/fonts/DentonCondensed-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Denton Condensed';
+	src: url('/fonts/DentonCondensed-BoldItalic.woff2') format('woff2');
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Denton Text';
+	src: url('/fonts/DentonText-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Denton Text';
+	src: url('/fonts/DentonText-RegularItalic.woff2') format('woff2');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Larken';
+	src: url('/fonts/Larken-LightItalic.woff2') format('woff2');
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Peregrin';
+	src: url('/fonts/PeregrinV18-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Systemia';
+	src: url('/fonts/Systemia-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Systemia Beta';
+	src: url('/fonts/SystemiaBeta1.31-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Font variables */
+:root {
+	/* Local font variables */
+	--fontDenton: 'Denton', serif;
+	--fontDentonCondensed: 'Denton Condensed', serif;
+	--fontDentonText: 'Denton Text', serif;
+	--fontLarken: 'Larken', serif;
+	--fontPeregrin: 'Peregrin', serif;
+	--fontSystemia: 'Systemia', sans-serif;
+	--fontSystemiaBeta: 'Systemia Beta', sans-serif;
+
+	/* Numbered font variables for easy rotation */
+	--font30: var(--fontDenton);
+	--font31: var(--fontDentonCondensed);
+	--font32: var(--fontDentonText);
+	--font33: var(--fontLarken);
+	--font34: var(--fontPeregrin);
+	--font35: var(--fontSystemia);
+	--font36: var(--fontSystemiaBeta);
+}

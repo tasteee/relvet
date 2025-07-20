@@ -1,0 +1,20 @@
+.ProgressionPanel {
+	position: fixed;
+	bottom: 12px;
+	left: 48px;
+	right: 48px;
+	width: calc(100% - 96px);
+	height: 128px;
+	border: 2px solid var(--slate-5);
+	border-radius: 5px 5px 0 0;
+	background: var(--slate-2);
+	padding: 8px 12px;
+	background: var(--color-panel-solid);
+
+	/* var(--color-panel-translucent); */
+}
+
+.progressionCanvas {
+	border: 2px solid var(--slate-5);
+	background: var(--slate-1);
+}

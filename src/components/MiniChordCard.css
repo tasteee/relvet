@@ -1,0 +1,17 @@
+.MiniChordCard {
+	--a3: color-mix(in srgb, var(--accent-a3), transparent 15%);
+	--a4: color-mix(in srgb, var(--accent-a4), transparent 15%);
+	--a5: color-mix(in srgb, var(--accent-a5), transparent 15%);
+	--a6: color-mix(in srgb, var(--accent-a6), transparent 15%);
+	/* color-mix(in srgb, var(--pink600), transparent 90%); */
+	/* --a6: color-mix(in srgb, var(--accent-6), 60%); */
+	z-index: 2500000;
+	border-width: 2px;
+	border: 1px solid var(--accent-9);
+	background: var(--accent-2);
+	color: var(--accent-12);
+	position: fixed;
+	pointer-events: none;
+	box-shadow: 0 0 0 1px var(--accent-a2), 0 2px 4px var(--accent-a2), 0 4px 8px var(--accent-a2), 0 8px 16px var(--accent-a2),
+		0 10px 32px var(--accent-a2), 0 0 24px var(--accent-a2);
+}

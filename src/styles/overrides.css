@@ -1,0 +1,23 @@
+:root {
+	--popover-content-padding: 4px;
+}
+
+.rt-PopoverContent {
+	border-radius: var(--radius-2);
+}
+
+.rt-BaseButton,
+.rt-Badge {
+	font-family: var(--fontSansHost);
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.rt-Badge {
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+.rt-BaseMenuViewport {
+	padding: 4px;
+}
