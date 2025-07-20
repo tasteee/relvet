@@ -175,8 +175,7 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 			</Popover.Anchor>
 			<Popover.Portal>
 				<Popover.Content className='PopoverContent'>
-					{/* <ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} /> */}
-					<div style={{ padding: '16px' }}>Chord settings coming soon...</div>
+					<ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} />
 					<Popover.Arrow />
 				</Popover.Content>
 			</Popover.Portal>
@@ -225,24 +224,26 @@ const VOICING_OPTIONS = {
 }
 
 export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
-	const handleOctaveChange = (value: number) => {
-		// TODO: Update chord octave and play preview
-		console.log('Octave change:', value)
+	const handleOctaveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(event.target.value)
+		if (!isNaN(value)) {
+			console.log('Octave change:', value)
+		}
 	}
 
-	const handleInversionChange = (value: number) => {
-		// TODO: Update chord inversion and play preview
-		console.log('Inversion change:', value)
+	const handleInversionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(event.target.value)
+		if (!isNaN(value)) {
+			console.log('Inversion change:', value)
+		}
 	}
 
-	const handleVoicingChange = (value: string) => {
-		// TODO: Update chord voicing and play preview
-		console.log('Voicing change:', value)
+	const handleVoicingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		console.log('Voicing change:', event.target.value)
 	}
 
-	const handleBassNoteChange = (value: string) => {
-		// TODO: Update chord bass note and play preview
-		console.log('Bass note change:', value)
+	const handleBassNoteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		console.log('Bass note change:', event.target.value)
 	}
 
 	return (
@@ -251,46 +252,52 @@ export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Octave (-4 to 4)</Typography.Small>
-				<NumberField
+				<input
+					type='number'
 					value={props.chord.octave}
 					onChange={handleOctaveChange}
 					min={-4}
 					max={4}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
 				/>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Inversion (-5 to 5)</Typography.Small>
-				<NumberField
+				<input
+					type='number'
 					value={props.chord.inversion}
 					onChange={handleInversionChange}
 					min={-5}
 					max={5}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
 				/>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Voicing</Typography.Small>
-				<SimpleSelect 
-					options={VOICING_OPTIONS} 
+				<select 
 					value={props.chord.voicing} 
-					onChange={handleVoicingChange} 
-				/>
+					onChange={handleVoicingChange}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				>
+					{Object.entries(VOICING_OPTIONS).map(([key, label]) => (
+						<option key={key} value={key}>{label}</option>
+					))}
+				</select>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Bass Note</Typography.Small>
-				<SimpleSelect
-					options={props.chord.notes.reduce(
-						(acc, note) => {
-							acc[note] = note
-							return acc
-						},
-						{} as Record<string, string>
-					)}
-					value={props.chord.bassNote}
+				<select 
+					value={props.chord.bassNote} 
 					onChange={handleBassNoteChange}
-				/>
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				>
+					{props.chord.notes.map((note) => (
+						<option key={note} value={note}>{note}</option>
+					))}
+				</select>
 			</Flex.Column>
 
 			<Flex.Row gap='2' justify='end' mt='2'>
