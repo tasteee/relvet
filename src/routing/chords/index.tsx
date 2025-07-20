@@ -1,7 +1,7 @@
 import './chords.css'
 import { Popover } from 'radix-ui'
 import { Flex } from '#/components/Flex'
-import { IconButton, ScrollArea } from '@radix-ui/themes'
+import { IconButton, ScrollArea, TextField } from '@radix-ui/themes'
 import { observer } from 'mobx-react-lite'
 import { $store } from './store'
 import { Icon } from '@iconify/react/dist/iconify.js'
@@ -114,12 +114,34 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 	const classes = classNames('BrowserChord', isEditingClass, isPinnedClass)
 	const togglePin = () => $store.togglePinnedChordId(props.chord.id)
 	const toggleEdit = () => isEditing.set.toggle()
-	// TODO: On click, play the chord.
+
+	const handleClick = () => {
+		// TODO: Play the chord using audio system
+		console.log('Playing chord:', props.chord.symbol)
+	}
+
+	const handleDragStart = (event: React.DragEvent) => {
+		event.dataTransfer.setData('application/json', JSON.stringify(props.chord))
+		event.dataTransfer.effectAllowed = 'copy'
+	}
+
+	const handleContextMenu = (event: React.MouseEvent) => {
+		event.preventDefault()
+		toggleEdit()
+	}
 
 	return (
 		<Popover.Root>
 			<Popover.Anchor asChild>
-				<ChordBrowserChord className={classes} key={props.chord.symbol} data-accent-color={props.chord.color}>
+				<ChordBrowserChord 
+					className={classes} 
+					key={props.chord.symbol} 
+					data-accent-color={props.chord.color}
+					draggable
+					onClick={handleClick}
+					onDragStart={handleDragStart}
+					onContextMenu={handleContextMenu}
+				>
 					<SymbolText className='symbol' data-uppercase>
 						{props.chord.symbol}
 					</SymbolText>
@@ -137,7 +159,7 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 			</Popover.Anchor>
 			<Popover.Portal>
 				<Popover.Content className='PopoverContent'>
-					<h3>well howdy</h3>
+					<ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} />
 					<Popover.Close />
 					<Popover.Arrow />
 				</Popover.Content>
@@ -168,3 +190,97 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 // 		</Flex.Column>
 // 	)
 // })
+
+type ChordEditMenuPropsT = {
+	chord: ChordT
+	onClose: () => void
+}
+
+const VOICING_OPTIONS = {
+	'closed': 'Closed',
+	'open': 'Open',
+	'drop2': 'Drop 2',
+	'drop3': 'Drop 3',
+	'drop2and4': 'Drop 2 & 4',
+	'rootless': 'Rootless',
+	'spread': 'Spread',
+	'cluster': 'Cluster',
+	'shell': 'Shell'
+}
+
+export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
+	const handleOctaveChange = (value: string) => {
+		// TODO: Update chord octave and play preview
+		console.log('Octave change:', value)
+	}
+
+	const handleInversionChange = (value: string) => {
+		// TODO: Update chord inversion and play preview
+		console.log('Inversion change:', value)
+	}
+
+	const handleVoicingChange = (value: string) => {
+		// TODO: Update chord voicing and play preview
+		console.log('Voicing change:', value)
+	}
+
+	const handleBassNoteChange = (value: string) => {
+		// TODO: Update chord bass note and play preview
+		console.log('Bass note change:', value)
+	}
+
+	return (
+		<Flex.Column gap='3' p='3' style={{ minWidth: '240px' }}>
+			<Typography.Bold>Edit Chord: {props.chord.symbol}</Typography.Bold>
+			
+			<Flex.Column gap='2'>
+				<Typography.Small>Octave</Typography.Small>
+				<TextField.Input
+					type="number"
+					defaultValue={props.chord.octave.toString()}
+					min={1}
+					max={7}
+					onChange={(e) => handleOctaveChange(e.target.value)}
+				/>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Inversion</Typography.Small>
+				<TextField.Input
+					type="number"
+					defaultValue={props.chord.inversion.toString()}
+					min={0}
+					max={props.chord.notes.length - 1}
+					onChange={(e) => handleInversionChange(e.target.value)}
+				/>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Voicing</Typography.Small>
+				<SimpleSelect 
+					options={VOICING_OPTIONS} 
+					value={props.chord.voicing} 
+					onChange={handleVoicingChange} 
+				/>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Bass Note</Typography.Small>
+				<SimpleSelect 
+					options={props.chord.notes.reduce((acc, note) => {
+						acc[note] = note
+						return acc
+					}, {} as Record<string, string>)} 
+					value={props.chord.bassNote} 
+					onChange={handleBassNoteChange} 
+				/>
+			</Flex.Column>
+
+			<Flex.Row gap='2' justify='end' mt='2'>
+				<IconButton variant='soft' size='1' onClick={props.onClose}>
+					<Icon icon='material-symbols:close' width='14px' height='14px' />
+				</IconButton>
+			</Flex.Row>
+		</Flex.Column>
+	)
+})

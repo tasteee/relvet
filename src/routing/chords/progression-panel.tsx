@@ -18,6 +18,23 @@ export const ProgressionPanel = observer(() => {
 	const totalBeats = $store.totalBeats || 16
 	const canvasWidth = totalBeats * BEAT_WIDTH
 
+	const handleDragOver = (event: React.DragEvent) => {
+		event.preventDefault()
+		event.dataTransfer.dropEffect = 'copy'
+	}
+
+	const handleDrop = (event: React.DragEvent) => {
+		event.preventDefault()
+		try {
+			const chordData = JSON.parse(event.dataTransfer.getData('application/json'))
+			if (chordData && chordData.symbol) {
+				$store.addChordToProgression(chordData)
+			}
+		} catch (error) {
+			console.error('Error parsing dropped chord data:', error)
+		}
+	}
+
 	return (
 		<Flex.Column className='ProgressionPanel' gap='2'>
 			<Flex.Row className='topRow' justify='between'>
@@ -36,12 +53,23 @@ export const ProgressionPanel = observer(() => {
 				</Flex.Row>
 			</Flex.Row>
 
-			<Stage width={canvasWidth} height={CANVAS_HEIGHT} className='progressionCanvas'>
-				<ProgressionBackground />
-				<Layer>
-					<ProgressionSteps />
-				</Layer>
-			</Stage>
+			<div 
+				onDragOver={handleDragOver}
+				onDrop={handleDrop}
+				style={{ 
+					border: '2px dashed var(--gray-6)', 
+					borderRadius: '4px', 
+					padding: '4px',
+					background: 'var(--gray-1)'
+				}}
+			>
+				<Stage width={canvasWidth} height={CANVAS_HEIGHT} className='progressionCanvas'>
+					<ProgressionBackground />
+					<Layer>
+						<ProgressionSteps />
+					</Layer>
+				</Stage>
+			</div>
 		</Flex.Column>
 	)
 })

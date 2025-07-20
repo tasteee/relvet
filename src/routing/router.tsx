@@ -6,15 +6,19 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { $main } from '#/stores/$main'
 import { ChordsView } from './chords'
+import { PatternsView } from './patterns'
+import { VipLayout } from './vip-layout'
 
 export const Router = observer(() => {
 	return (
 		<>
 			<MainStoreRoutingBranch />
 			<Switch>
-				<Route path='/' component={ChordsView} />
+				<Route path='/' component={VipLayout} />
+				<Route path='/chords' component={() => <VipLayout initialView="chords" />} />
+				<Route path='/patterns' component={() => <VipLayout initialView="patterns" />} />
 				{/* <Route path='studio' component={StudioHome} /> */}
-				<Route path='*' component={ChordsView} />
+				<Route path='*' component={VipLayout} />
 				{/* <Route path="/settings" component={Settings} /> */}
 				{/* <Route path="/auth" component={Auth} /> */}
 				{/* Add more routes as needed */}
