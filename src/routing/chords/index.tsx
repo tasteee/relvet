@@ -1,5 +1,5 @@
 import './chords.css'
-import { Popover } from 'radix-ui'
+import * as Popover from '@radix-ui/react-popover'
 import { Flex } from '#/components/Flex'
 import { IconButton, ScrollArea, TextField } from '@radix-ui/themes'
 import { observer } from 'mobx-react-lite'
@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { ProgressionPanel } from './progression-panel'
 import { styled } from 'styled-components'
 import { SimpleSelect } from '#/components/simple-select'
+import { NumberField } from '#/components/NumberField'
 import classNames from 'classnames'
 import { useDatass } from 'datass'
 import './popover.css'
@@ -174,8 +175,8 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 			</Popover.Anchor>
 			<Popover.Portal>
 				<Popover.Content className='PopoverContent'>
-					<ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} />
-					<Popover.Close />
+					{/* <ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} /> */}
+					<div style={{ padding: '16px' }}>Chord settings coming soon...</div>
 					<Popover.Arrow />
 				</Popover.Content>
 			</Popover.Portal>
@@ -224,12 +225,12 @@ const VOICING_OPTIONS = {
 }
 
 export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
-	const handleOctaveChange = (value: string) => {
+	const handleOctaveChange = (value: number) => {
 		// TODO: Update chord octave and play preview
 		console.log('Octave change:', value)
 	}
 
-	const handleInversionChange = (value: string) => {
+	const handleInversionChange = (value: number) => {
 		// TODO: Update chord inversion and play preview
 		console.log('Inversion change:', value)
 	}
@@ -249,30 +250,32 @@ export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
 			<Typography.Bold>Edit Chord: {props.chord.symbol}</Typography.Bold>
 
 			<Flex.Column gap='2'>
-				<Typography.Small>Octave</Typography.Small>
-				<TextField.Input
-					type='number'
-					defaultValue={props.chord.octave.toString()}
-					min={1}
-					max={7}
-					onChange={(e) => handleOctaveChange(e.target.value)}
+				<Typography.Small>Octave (-4 to 4)</Typography.Small>
+				<NumberField
+					value={props.chord.octave}
+					onChange={handleOctaveChange}
+					min={-4}
+					max={4}
 				/>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
-				<Typography.Small>Inversion</Typography.Small>
-				<TextField.Input
-					type='number'
-					defaultValue={props.chord.inversion.toString()}
-					min={0}
-					max={props.chord.notes.length - 1}
-					onChange={(e) => handleInversionChange(e.target.value)}
+				<Typography.Small>Inversion (-5 to 5)</Typography.Small>
+				<NumberField
+					value={props.chord.inversion}
+					onChange={handleInversionChange}
+					min={-5}
+					max={5}
 				/>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
 				<Typography.Small>Voicing</Typography.Small>
-				<SimpleSelect options={VOICING_OPTIONS} value={props.chord.voicing} onChange={handleVoicingChange} />
+				<SimpleSelect 
+					options={VOICING_OPTIONS} 
+					value={props.chord.voicing} 
+					onChange={handleVoicingChange} 
+				/>
 			</Flex.Column>
 
 			<Flex.Column gap='2'>
