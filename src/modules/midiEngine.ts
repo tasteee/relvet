@@ -166,7 +166,7 @@ export const createMidiEngine = (): MidiEngineT => {
 
 	const clearScheduled = () => {
 		store.scheduledTimeouts.forEach((timeout) => clearTimeout(timeout))
-		$output.audioContext.close()
+		// $output.audioContext.close()
 		$output.instrument.stop()
 		store.scheduledTimeouts = []
 	}

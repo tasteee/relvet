@@ -1,18 +1,20 @@
 import './chords.css'
-import { Popover } from 'radix-ui'
+import * as Popover from '@radix-ui/react-popover'
 import { Flex } from '#/components/Flex'
-import { IconButton, ScrollArea } from '@radix-ui/themes'
+import { IconButton, ScrollArea, TextField } from '@radix-ui/themes'
 import { observer } from 'mobx-react-lite'
 import { $store } from './store'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { ProgressionPanel } from './progression-panel'
 import { styled } from 'styled-components'
 import { SimpleSelect } from '#/components/simple-select'
+import { NumberField } from '#/components/NumberField'
 import classNames from 'classnames'
 import { useDatass } from 'datass'
 import './popover.css'
 import { Typography } from '#/styles/system'
 import { ROOT_NOTES, SCALE_TYPES } from './constants'
+import { $output } from '#/stores/$output'
 
 export const ChordBrowserChord = styled.div`
 	height: 44px;
@@ -114,12 +116,48 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 	const classes = classNames('BrowserChord', isEditingClass, isPinnedClass)
 	const togglePin = () => $store.togglePinnedChordId(props.chord.id)
 	const toggleEdit = () => isEditing.set.toggle()
-	// TODO: On click, play the chord.
+
+	const handleClick = () => {
+		// Play the chord using the audio system
+		if ($output.instrument) {
+			console.log('Playing chord:', props.chord)
+
+			// Play each note in the chord
+			const now = $output.audioContext.currentTime
+			props.chord.adjustedNotes.forEach((note, index) => {
+				const delay = index * 0.02 // Slight stagger for a more natural sound
+				$output.instrument.play(note, now + delay, {
+					duration: 1.5,
+					gain: 0.6,
+				})
+			})
+		} else {
+			console.log('Audio system not ready, chord:', props.chord.symbol)
+		}
+	}
+
+	const handleDragStart = (event: React.DragEvent) => {
+		event.dataTransfer.setData('application/json', JSON.stringify(props.chord))
+		event.dataTransfer.effectAllowed = 'copy'
+	}
+
+	const handleContextMenu = (event: React.MouseEvent) => {
+		event.preventDefault()
+		toggleEdit()
+	}
 
 	return (
 		<Popover.Root>
 			<Popover.Anchor asChild>
-				<ChordBrowserChord className={classes} key={props.chord.symbol} data-accent-color={props.chord.color}>
+				<ChordBrowserChord
+					className={classes}
+					key={props.chord.symbol}
+					data-accent-color={props.chord.color}
+					draggable
+					onClick={handleClick}
+					onDragStart={handleDragStart}
+					onContextMenu={handleContextMenu}
+				>
 					<SymbolText className='symbol' data-uppercase>
 						{props.chord.symbol}
 					</SymbolText>
@@ -137,8 +175,7 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 			</Popover.Anchor>
 			<Popover.Portal>
 				<Popover.Content className='PopoverContent'>
-					<h3>well howdy</h3>
-					<Popover.Close />
+					<ChordEditMenu chord={props.chord} onClose={() => isEditing.set.false()} />
 					<Popover.Arrow />
 				</Popover.Content>
 			</Popover.Portal>
@@ -168,3 +205,106 @@ const BrowserChord = observer((props: BrowserChordPropsT) => {
 // 		</Flex.Column>
 // 	)
 // })
+
+type ChordEditMenuPropsT = {
+	chord: ChordT
+	onClose: () => void
+}
+
+const VOICING_OPTIONS = {
+	closed: 'Closed',
+	open: 'Open',
+	drop2: 'Drop 2',
+	drop3: 'Drop 3',
+	drop2and4: 'Drop 2 & 4',
+	rootless: 'Rootless',
+	spread: 'Spread',
+	cluster: 'Cluster',
+	shell: 'Shell',
+}
+
+export const ChordEditMenu = observer((props: ChordEditMenuPropsT) => {
+	const handleOctaveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(event.target.value)
+		if (!isNaN(value)) {
+			console.log('Octave change:', value)
+		}
+	}
+
+	const handleInversionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(event.target.value)
+		if (!isNaN(value)) {
+			console.log('Inversion change:', value)
+		}
+	}
+
+	const handleVoicingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		console.log('Voicing change:', event.target.value)
+	}
+
+	const handleBassNoteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		console.log('Bass note change:', event.target.value)
+	}
+
+	return (
+		<Flex.Column gap='3' p='3' style={{ minWidth: '240px' }}>
+			<Typography.Bold>Edit Chord: {props.chord.symbol}</Typography.Bold>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Octave (-4 to 4)</Typography.Small>
+				<input
+					type='number'
+					value={props.chord.octave}
+					onChange={handleOctaveChange}
+					min={-4}
+					max={4}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				/>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Inversion (-5 to 5)</Typography.Small>
+				<input
+					type='number'
+					value={props.chord.inversion}
+					onChange={handleInversionChange}
+					min={-5}
+					max={5}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				/>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Voicing</Typography.Small>
+				<select 
+					value={props.chord.voicing} 
+					onChange={handleVoicingChange}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				>
+					{Object.entries(VOICING_OPTIONS).map(([key, label]) => (
+						<option key={key} value={key}>{label}</option>
+					))}
+				</select>
+			</Flex.Column>
+
+			<Flex.Column gap='2'>
+				<Typography.Small>Bass Note</Typography.Small>
+				<select 
+					value={props.chord.bassNote} 
+					onChange={handleBassNoteChange}
+					style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+				>
+					{props.chord.notes.map((note) => (
+						<option key={note} value={note}>{note}</option>
+					))}
+				</select>
+			</Flex.Column>
+
+			<Flex.Row gap='2' justify='end' mt='2'>
+				<IconButton variant='soft' size='1' onClick={props.onClose}>
+					<Icon icon='material-symbols:close' width='14px' height='14px' />
+				</IconButton>
+			</Flex.Row>
+		</Flex.Column>
+	)
+})

@@ -21,8 +21,8 @@ class OutputStore {
 	@observable accessor instruments: Record<string, Player> = {}
 	@observable accessor instrumentsError: any = null
 	@observable accessor audioContext: AudioContext = null!
-	@observable accessor midiOutputIds: string[] = []
-	@observable accessor midiOutputId = ''
+	@observable accessor midiOutputNames: string[] = []
+	@observable accessor midiOutputName = ''
 	@observable accessor midiOutput: Output = null!
 	@observable accessor midiError: any = null
 	@observable accessor instrumentNames = ['acoustic_grand_piano', 'acoustic_guitar_nylon', 'electric_guitar_clean', 'xylophone', 'marimba']
@@ -41,10 +41,9 @@ class OutputStore {
 		this.target = target
 	}
 
-	@action setSelectedInstrument = (name: string) => {
+	@action setSelectedInstrument = (name: string, instrument: Player) => {
 		this.instrumentName = name
-		this.instrument = this.instruments[name]
-		this.isInstrumentReady = !!this.instrument
+		this.instrument = instrument
 	}
 
 	private loadInstrument = async (context: AudioContext, name: InstrumentName) => {
@@ -66,10 +65,11 @@ class OutputStore {
 		const instrumentPromises = [loader0, loader1, loader2, loader3, loader4]
 		const instrumentsResult = await too(Promise.all(instrumentPromises))
 		const midiConnectResult = await too(WebMidi.enable())
+		this.isInstrumentLoading = false
+		this.isMidiLoading = false
 
 		if (instrumentsResult.didFail) {
 			console.error('Error loading instruments:', instrumentsResult.error)
-			this.isInstrumentLoading = false
 			this.isInstrumentReady = false
 			this.instrumentsError = instrumentsResult.error
 		}
@@ -77,7 +77,6 @@ class OutputStore {
 		if (midiConnectResult.didFail) {
 			console.error('Error enabling MIDI:', midiConnectResult.error)
 			this.isMidiConnected = false
-			this.isMidiLoading = false
 			this.midiError = midiConnectResult.error
 		}
 
@@ -86,10 +85,13 @@ class OutputStore {
 		}
 
 		if (!instrumentsResult.didFail) {
+			console.log('Instruments loaded successfully:', instrumentsResult.data)
+
 			const instruments = instrumentsResult.data as Player[]
 			this.isInstrumentReady = true
 			this.isInstrumentLoading = false
 
+			console.log('Setting up instruments:', instruments)
 			this.instruments = {
 				acoustic_grand_piano: instruments[0],
 				acoustic_guitar_nylon: instruments[1],
@@ -97,21 +99,27 @@ class OutputStore {
 				xylophone: instruments[3],
 				marimba: instruments[4],
 			}
+
+			console.log('Selecting default instrument:', this.instrumentName)
+			this.setSelectedInstrument(this.instrumentName, this.instruments[this.instrumentName])
 		}
 
 		if (!midiConnectResult.didFail) {
+			const outputs = WebMidi.outputs
+			const outputNames = outputs.map((output) => output.name)
+			console.log('MIDI enabled successfully:', { outputs, outputNames })
+			this.isMidiReady = true
 			this.isMidiConnected = true
-			this.isMidiLoading = false
 
-			const getId = (output: Output) => output.id
-			const ids = WebMidi.outputs.map(getId)
-			const midiOutput = WebMidi.getOutputById(ids[0]) as Output
+			const getName = (output: Output) => output.name
+			const names = WebMidi.outputs.map(getName)
+			const midiOutput = WebMidi.getOutputByName(names[0]) as Output
 			this.isMidiConnected = true
-			this.midiOutputIds = ids
-			this.midiOutputId = ids[0]
+			this.midiOutputNames = names
+			this.midiOutputName = names[0]
 			this.midiOutput = midiOutput
 			this.isMidiReady = true
-			console.warn('[midi ready]', { ids, midiOutput })
+			console.warn('[midi ready]', { names, midiOutput })
 		}
 	}
 }
